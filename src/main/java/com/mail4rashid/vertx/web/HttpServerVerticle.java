@@ -18,11 +18,20 @@ import java.util.Set;
 public class HttpServerVerticle extends AbstractVerticle{
     private RestAPIController controller;
 
+    /**
+     *
+     * @param controller
+     */
     @Inject
     public HttpServerVerticle(RestAPIController controller) {
         this.controller = controller;
     }
 
+    /**
+     *
+     * @param future
+     * @throws Exception
+     */
     @Override
     public void start(Future<Void> future) throws Exception{
         int PORT = 8181;
@@ -59,6 +68,10 @@ public class HttpServerVerticle extends AbstractVerticle{
             });
     }
 
+    /**
+     *
+     * @return
+     */
     private Set<String> getAllowedHeaders() {
         Set<String> allowHeaders = new HashSet<>();
         allowHeaders.add("x-requested-with");
@@ -69,6 +82,10 @@ public class HttpServerVerticle extends AbstractVerticle{
         return allowHeaders;
     }
 
+    /**
+     *
+     * @return
+     */
     private Set<HttpMethod> getAllowedMethods(){
         Set<HttpMethod> allowMethods = new HashSet<>();
         allowMethods.add(HttpMethod.GET);

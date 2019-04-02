@@ -3,7 +3,7 @@ package com.mail4rashid.vertx.web;
 import com.google.inject.Inject;
 import com.mail4rashid.vertx.config.API;
 import com.mail4rashid.vertx.config.Events;
-import com.mail4rashid.vertx.service.Welcome;
+import com.mail4rashid.vertx.verticles.service.Welcome;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.Message;
@@ -35,12 +35,11 @@ public class RestAPIController {
      * Return a configured Router instance
      * @return - vertx Router
      */
-    public Router getRouter(){
+    public Router getRouter() {
         if(router == null){
             router = Router.router(vertx);
             router.get(API.WELCOME).handler(this::getWelcomeMsg);
         }
-
         return router;
     }
 
@@ -63,7 +62,7 @@ public class RestAPIController {
      * @param res - Event bus response
      * @param ctx - RoutingContext for the request
      */
-    private void handleEventBusResponse(AsyncResult<Message<Object>> res, RoutingContext ctx){
+    private void handleEventBusResponse(AsyncResult<Message<Object>> res, RoutingContext ctx) {
         if(res.succeeded()){
             ctx.response().end(res.result().body().toString());
         }

@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;
 import com.mail4rashid.vertx.config.AppConfig;
-import com.mail4rashid.vertx.service.Welcome;
+import com.mail4rashid.vertx.verticles.service.Welcome;
 import com.mail4rashid.vertx.web.RestAPIController;
 import io.vertx.core.Vertx;
 

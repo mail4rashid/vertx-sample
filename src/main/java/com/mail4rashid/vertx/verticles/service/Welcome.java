@@ -1,4 +1,4 @@
-package com.mail4rashid.vertx.service;
+package com.mail4rashid.vertx.verticles.service;
 
 import com.mail4rashid.vertx.domain.Greeting;
 import io.reactivex.Observable;

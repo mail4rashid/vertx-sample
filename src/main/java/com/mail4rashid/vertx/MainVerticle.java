@@ -2,18 +2,33 @@ package com.mail4rashid.vertx;
 
 import com.google.inject.Inject;
 import com.mail4rashid.vertx.config.AppConfig;
-import com.mail4rashid.vertx.service.WorkerVerticle;
+import com.mail4rashid.vertx.util.helper.FutureProvider;
+import com.mail4rashid.vertx.util.helper.HelperVertxRx;
+import com.mail4rashid.vertx.verticles.service.WorkerVerticle;
 import com.mail4rashid.vertx.web.HttpServerVerticle;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 import io.vertx.core.*;
 import io.vertx.core.json.JsonObject;
+
+import java.time.Duration;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 /**
  * Created by Mohammed Rashid on 2019-01-26.
  */
-public class Main extends AbstractVerticle {
+public class MainVerticle extends AbstractVerticle {
 
     /**
-     * Main method that instantiates Vertx and deploys the launcher verticle
+     * MainVerticle method that instantiates Vertx and deploys the launcher verticle
      * @param args
      */
     public static void main(String[] args){
@@ -73,7 +88,7 @@ public class Main extends AbstractVerticle {
      * @param opts - Deployment options to use for deployment
      * @return - Future that can be used to handle successful / failed deployments
      */
-    private static Future<Void> deploy(Vertx vertx, Class verticle, DeploymentOptions opts){
+    private static Future<Void> deploy(Vertx vertx, Class verticle, DeploymentOptions opts) {
         Future<Void> done = Future.future();
         String deploymentName = "java-guice:" + verticle.getName();
         JsonObject config = new JsonObject()
